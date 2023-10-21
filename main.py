@@ -102,6 +102,8 @@ class Main(QWidget):
         self.ui.sb_shelf.setValue(0)
         self.ui.check_legs.setChecked(False)
 
+    def save(self):
+        pass
 
 
 app = QApplication(sys.argv)
