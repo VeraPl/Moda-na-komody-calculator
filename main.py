@@ -90,6 +90,18 @@ class Main(QWidget):
     def calculate(self):
         print("calculate")
 
+    def clear(self):
+        self.ui.cb_type.setCurrentText(" ")
+        self.ui.wood.setText("...")
+        self.ui.upholstery.setText("...")
+        self.ui.sb_height.setValue(0.0)
+        self.ui.sb_width.setValue(0.0)
+        self.ui.sb_deep.setValue(0.0)
+        self.ui.sb_section.setValue(0)
+        self.ui.sb_box.setValue(0)
+        self.ui.sb_shelf.setValue(0)
+        self.ui.check_legs.setChecked(False)
+
 
 
 app = QApplication(sys.argv)
