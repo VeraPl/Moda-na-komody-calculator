@@ -2,23 +2,70 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QDialog, QApplication, QGraphicsDropShadowEffect, QPushButton, QLabel, QFrame
+from PyQt5.QtWidgets import QDialog, QGraphicsDropShadowEffect, QPushButton, QLabel, QFrame
 
 
-class Selection(QDialog):
+class CatalogWood(QDialog):
 
     def __init__(self):
-        super(Selection, self).__init__()
-        ui, _ = uic.loadUiType('ui/catalog.ui')
+        super(CatalogWood, self).__init__()
+        ui, _ = uic.loadUiType('ui/catalog_wood.ui')
         self.ui = ui()
         self.ui.setupUi(self)
+        self.result = None
 
-        self.select_wood()
-        # self.select_fabric()
-
-    def select_wood(self):
         for child in self.findChildren(QPushButton):
-            pic = child.objectName().split("_")[-1]
+                pic = "_".join(child.objectName().split("_")[1:])
+                child.setStyleSheet(f"""QPushButton {{
+                                        background-color: grey;
+                                        border-image: url('icons/materials/{pic}.jpg') 3 10 3 10;
+                                        border-top: 10px transparent;
+                                        border-bottom: 3px transparent;
+                                        border-right: 10px transparent;
+                                        border-left: 10px transparent;
+                                        border-radius: 75px;
+                                        max-width: 150px;
+                                        max-height: 150px;
+                                        min-width: 150px;
+                                        min-height: 150px;
+                                    }}""")
+                shadow = QGraphicsDropShadowEffect(self)
+                shadow.setBlurRadius(16)
+                child.setGraphicsEffect(shadow)
+                child.clicked.connect(self.return_wood)
+
+    def return_wood(self):
+        d = {"larch": "Лиственница",
+             "oak": "Дуб",
+             "birch": "Береза",
+             "cherry": "Вишня",
+             "alder": "Ольха",
+             "ash": "Ясень",
+             "pine": "Сосна",
+             "beech": "Бук",
+             "walnut": "Орех",
+             "apple": "Яблоня",
+             "red": "Красное дерево",
+             "ebony": "Черное дерево"
+             }
+        self.result = d["_".join(self.sender().objectName().split("_")[1:])]
+        self.close_dlg()
+
+    def close_dlg(self):
+        self.accept()
+
+
+class CatalogUpholstery(QDialog):
+
+    def __init__(self):
+        super(CatalogUpholstery, self).__init__()
+        ui, _ = uic.loadUiType('ui/catalog_upholstery.ui')
+        self.ui = ui()
+        self.ui.setupUi(self)
+        self.result = None
+
+        for child in self.findChildren(QPushButton):
+            pic = "_".join(child.objectName().split("_")[1:])
             child.setStyleSheet(f"""QPushButton {{
                                     background-color: grey;
                                     border-image: url('icons/materials/{pic}.jpg') 3 10 3 10;
@@ -35,39 +82,24 @@ class Selection(QDialog):
             shadow = QGraphicsDropShadowEffect(self)
             shadow.setBlurRadius(16)
             child.setGraphicsEffect(shadow)
+            child.clicked.connect(self.return_upholstery)
 
-    def select_fabric(self):
-        change_pic = {"larch":"leather", "oak":"eco_leather", "birch":"mat", "cherry":"chenille", "alder":"nat_suede",
-                      "pine":"faux_suede", "ash":"flock", "beech":"microfiber", "walnut":"boucle", "apple":"velours",
-                      "red": "tapestry", "ebony": "jacquard"}
-        change_text ={"larch": "Натуральная кожа", "oak": "Экокожа", "birch": "Рогожа", "cherry": "Шенилл",
-                      "alder": "Натуральная замша", "pine": "Искусственная замша", "ash": "Флок", "beech": "Микрофибра",
-                      "walnut": "Букле", "apple": "Велюр", "red": "Гобелен", "ebony": "Жаккард"}
-        for child in self.findChildren(QPushButton):
-            pic = child.objectName().split("_")[-1]
-            child.setStyleSheet(f"""QPushButton {{
-                                    background-color: transparent;
-                                    border-image: url('icons/materials/{change_pic[pic]}.jpg') 3 10 3 10;
-                                    border-top: 10px transparent;
-                                    border-bottom: 3px transparent;
-                                    border-right: 10px transparent;
-                                    border-left: 10px transparent;
-                                    border-radius: 75px;
-                                    max-width: 150px;
-                                    max-height: 150px;
-                                    min-width: 150px;
-                                    min-height: 150px;
-                                }}""")
-            shadow = QGraphicsDropShadowEffect(self)
-            shadow.setBlurRadius(20)
-            child.setGraphicsEffect(shadow)
+    def return_upholstery(self):
+        d = {"leather": "Кожа",
+             "eco_leather": "Экокожа",
+             "mat": "Рогожа",
+             "chenille": "Шенилл",
+             "nat_suede": "Натуральная замша",
+             "faux_suede": "Искусственная замша",
+             "flock": "Флок",
+             "microfiber": "Микрофибра",
+             "boucle": "Букле",
+             "velours": "Велюр",
+             "tapestry": "Гобелен",
+             "jacquard": "Жаккард"
+             }
+        self.result = d["_".join(self.sender().objectName().split("_")[1:])]
+        self.close_dlg()
 
-        for child in self.findChildren(QLabel):
-            pic = child.objectName().split("_")[-1]
-            child.setText(change_text[pic])
-
-
-app = QApplication(sys.argv)
-window = Selection()
-window.show()
-sys.exit(app.exec_())
+    def close_dlg(self):
+        self.accept()
