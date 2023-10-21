@@ -13,6 +13,7 @@ class Main(QWidget):
         ui, _ = uic.loadUiType('ui/main.ui')
         self.ui = ui()
         self.ui.setupUi(self)
+        self.setWindowTitle("Мода на комоды - Калькулятор стоимости мебельных изделий")
 
         self.dlg = None
         self.wood = None
