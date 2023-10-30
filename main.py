@@ -2,8 +2,10 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QApplication, QGraphicsDropShadowEffect, QPushButton, QGraphicsOpacityEffect, QMenuBar, QDialog
+from PyQt5.QtWidgets import (QWidget, QApplication, QGraphicsDropShadowEffect, QPushButton, QGraphicsOpacityEffect,
+                             QMenuBar, QDialog, QSizePolicy, QScrollArea)
 from catalog import CatalogWood, CatalogUpholstery
+from gl_widget import GLWidget
 
 
 class Main(QWidget):
@@ -14,6 +16,11 @@ class Main(QWidget):
         self.ui = ui()
         self.ui.setupUi(self)
         self.setWindowTitle("Мода на комоды - Калькулятор стоимости мебельных изделий")
+
+        self.preview = GLWidget(self.ui.openGLWidget)
+        self.preview.resize(self.ui.openGLWidget.size())
+        self.preview.setContextMenuPolicy(0)
+        self.preview.setContentsMargins(1, 1, 1, 1)
 
         self.dlg = None
         self.wood = None
@@ -118,6 +125,11 @@ class Main(QWidget):
     def save(self):
         pass
 
+    def resizeEvent(self, event):
+        try:
+            self.preview.resize(self.ui.openGLWidget.size())
+        except:
+            pass
 
 app = QApplication(sys.argv)
 window = Main()
