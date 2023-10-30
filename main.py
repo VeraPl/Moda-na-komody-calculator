@@ -31,6 +31,7 @@ class Main(QWidget):
         self.section = 0
         self.box = 0
         self.shelf = 0
+        self.result = 0
         self.legs = False
 
         self.ui.btn_wood.setIcon(QIcon("icons/material.png"))
@@ -80,6 +81,8 @@ class Main(QWidget):
 
     def change_sections(self):
         self.section = int(self.ui.sb_section.value())
+        self.preview.section = self.section
+        self.preview.update()
         self.calculate()
 
     def change_boxes(self):
@@ -88,6 +91,8 @@ class Main(QWidget):
 
     def change_shelves(self):
         self.shelf = int(self.ui.sb_shelf.value())
+        self.preview.shelf = self.shelf
+        self.preview.update()
         self.calculate()
 
     def change_legs(self):

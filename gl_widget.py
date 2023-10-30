@@ -56,6 +56,42 @@ class GLWidget(QOpenGLWidget):
 
         glEnd()
 
+    def draw_section(self, count):
+        if count:
+            count += 1
+            K = self.w * 2 / count
+            w = []
+            for i in range(1, count):
+                w.append(self.w - (K * i))
+            l, h = (self.l, self.h)
+            for i in range(count - 1):
+                vertices = ((-w[i], -l, -h), (-w[i], l, -h), (-w[i], l, h), (-w[i], -l, h))
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+                glBegin(GL_LINES)
+                for edge in ((0, 1), (1, 2), (0, 3), (2, 3)):
+                    for vertex in edge:
+                        glVertex3fv(vertices[vertex])
+                        glColor3fv((1, 1, 1))
+                glEnd()
+
+    def draw_shelves(self, count):
+        if count:
+            count += 1
+            K = self.l * 2 / count
+            l = []
+            for i in range(1, count):
+                l.append(self.l - (K * i))
+            w, h = (self.w, self.h)
+            for i in range(count - 1):
+                vertices = ((w, l[i], -h), (-w, l[i], -h), (-w, l[i], h), (w, l[i], h))
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+                glBegin(GL_LINES)
+                for edge in ((0, 1), (1, 2), (2, 3), (3, 0)):
+                    for vertex in edge:
+                        glVertex3fv(vertices[vertex])
+                        glColor3fv((1,1,1))
+                glEnd()
+
     def paintGL(self, coordinates=None) -> None:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glPushMatrix()
