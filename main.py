@@ -88,9 +88,20 @@ class Main(QWidget):
         self.calculate()
 
     def calculate(self):
-        print("calculate")
+        self.ui.result.setText(f"Конечная стоимость: от {self.result} руб. ")
 
     def clear(self):
+        self.dlg = None
+        self.wood = None
+        self.upholstery = None
+        self.width = 0
+        self.height = 0
+        self.deep = 0
+        self.section = 0
+        self.box = 0
+        self.shelf = 0
+        self.result = 0
+        self.legs = False
         self.ui.cb_type.setCurrentText(" ")
         self.ui.wood.setText("...")
         self.ui.upholstery.setText("...")
@@ -101,6 +112,8 @@ class Main(QWidget):
         self.ui.sb_box.setValue(0)
         self.ui.sb_shelf.setValue(0)
         self.ui.check_legs.setChecked(False)
+        self.ui.result.setText(f"Конечная стоимость: от {self.result} руб. ")
+
 
     def save(self):
         pass

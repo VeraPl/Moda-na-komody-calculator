@@ -2591,11 +2591,16 @@ line-height: normal;
        <property name="minimumSize">
         <size>
          <width>700</width>
-         <height>0</height>
+         <height>775</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Ubuntu</family>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
      </item>
