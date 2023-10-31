@@ -22,15 +22,16 @@ class GLWidget(QOpenGLWidget):
         self.z_rot = 0
         self.auto_rot = 0
 
-        self.w, self.l, self.h = (3, 6, 2.5)
+        self.l = 0
+        self.w = 0
+        self.h = 0
         self.section = 0
         self.shelf = 0
 
-        self.vertices = ((-self.w, -self.l, -self.h), (-self.w, self.l, -self.h), (-self.w, self.l, self.h),
-                         (-self.w, -self.l, self.h), (self.w, -self.l, -self.h), (self.w, self.l, -self.h),
-                         (self.w, self.l, self.h), (self.w, -self.l, self.h), (self.w/2, self.l, self.h))
         self.edges = ((0, 1), (0, 3), (0, 4), (1, 2), (1, 5), (2, 3), (2, 6), (3, 7), (4, 5), (4, 7), (7, 6), (6, 5))
         self.walls = ((2, 6, 7, 3), (4, 5, 6, 7), (0, 4, 7, 3), (1, 5, 6, 2), (0, 1, 2, 3), (1, 0, 4, 5))
+        self.vertices = None
+        self.change_values()
 
         self.auto_rotation = False
         timer = QTimer(self)
@@ -56,6 +57,11 @@ class GLWidget(QOpenGLWidget):
 
         glEnd()
 
+    def change_values(self):
+        self.vertices = ((-self.w, -self.h, -self.l), (-self.w, self.h, -self.l), (-self.w, self.h, self.l),
+                         (-self.w, -self.h, self.l), (self.w, -self.h, -self.l), (self.w, self.h, -self.l),
+                         (self.w, self.h, self.l), (self.w, -self.h, self.l), (self.w / 2, self.h, self.l))
+
     def draw_section(self, count):
         if count:
             count += 1
@@ -65,7 +71,7 @@ class GLWidget(QOpenGLWidget):
                 w.append(self.w - (K * i))
             l, h = (self.l, self.h)
             for i in range(count - 1):
-                vertices = ((-w[i], -l, -h), (-w[i], l, -h), (-w[i], l, h), (-w[i], -l, h))
+                vertices = ((-w[i], -h, -l), (-w[i], h, -l), (-w[i], h, l), (-w[i], -h, l))
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
                 glBegin(GL_LINES)
                 for edge in ((0, 1), (1, 2), (0, 3), (2, 3)):
@@ -77,13 +83,13 @@ class GLWidget(QOpenGLWidget):
     def draw_shelves(self, count):
         if count:
             count += 1
-            K = self.l * 2 / count
-            l = []
+            K = self.h * 2 / count
+            h = []
             for i in range(1, count):
-                l.append(self.l - (K * i))
-            w, h = (self.w, self.h)
+                h.append(self.h - (K * i))
+            w, l = (self.w, self.l)
             for i in range(count - 1):
-                vertices = ((w, l[i], -h), (-w, l[i], -h), (-w, l[i], h), (w, l[i], h))
+                vertices = ((w, h[i], -l), (-w, h[i], -l), (-w, h[i], l), (w, h[i], l))
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
                 glBegin(GL_LINES)
                 for edge in ((0, 1), (1, 2), (2, 3), (3, 0)):

@@ -69,19 +69,29 @@ class Main(QWidget):
 
     def change_height(self):
         self.height = float(self.ui.sb_height.value())
+        self.preview.h = self.height
+        self.preview.change_values()ше
+        self.preview.update()
         self.calculate()
 
     def change_width(self):
         self.width = float(self.ui.sb_width.value())
+        self.preview.w = self.width
+        self.preview.change_values()
+        self.preview.update()
         self.calculate()
 
-    def change_deep(self):
-        self.deep = float(self.ui.sb_deep.value())
+    def change_length(self):
+        self.length = float(self.ui.sb_length.value())
+        self.preview.l = self.length
+        self.preview.change_values()
+        self.preview.update()
         self.calculate()
 
     def change_sections(self):
         self.section = int(self.ui.sb_section.value())
         self.preview.section = self.section
+        self.preview.change_values()
         self.preview.update()
         self.calculate()
 
