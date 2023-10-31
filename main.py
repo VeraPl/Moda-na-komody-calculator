@@ -27,7 +27,7 @@ class Main(QWidget):
         self.upholstery = None
         self.width = 0
         self.height = 0
-        self.deep = 0
+        self.length = 0
         self.section = 0
         self.box = 0
         self.shelf = 0
@@ -46,7 +46,7 @@ class Main(QWidget):
 
         self.ui.sb_height.valueChanged.connect(self.change_height)
         self.ui.sb_width.valueChanged.connect(self.change_width)
-        self.ui.sb_deep.valueChanged.connect(self.change_deep)
+        self.ui.sb_length.valueChanged.connect(self.change_length)
         self.ui.sb_section.valueChanged.connect(self.change_sections)
         self.ui.sb_box.valueChanged.connect(self.change_boxes)
         self.ui.sb_shelf.valueChanged.connect(self.change_shelves)
@@ -108,7 +108,7 @@ class Main(QWidget):
         self.upholstery = None
         self.width = 0
         self.height = 0
-        self.deep = 0
+        self.length = 0
         self.section = 0
         self.box = 0
         self.shelf = 0
@@ -119,13 +119,12 @@ class Main(QWidget):
         self.ui.upholstery.setText("...")
         self.ui.sb_height.setValue(0.0)
         self.ui.sb_width.setValue(0.0)
-        self.ui.sb_deep.setValue(0.0)
+        self.ui.sb_length.setValue(0.0)
         self.ui.sb_section.setValue(0)
         self.ui.sb_box.setValue(0)
         self.ui.sb_shelf.setValue(0)
         self.ui.check_legs.setChecked(False)
         self.ui.result.setText(f"Конечная стоимость: от {self.result} руб. ")
-
 
     def save(self):
         pass

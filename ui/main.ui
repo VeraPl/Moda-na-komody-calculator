@@ -155,7 +155,7 @@ QComboBox::item:selected
             </property>
             <item>
              <property name="text">
-              <string> </string>
+              <string/>
              </property>
             </item>
             <item>
@@ -541,7 +541,7 @@ QDoubleSpinBox::down-arrow {
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
-           <widget class="QLabel" name="la_deep">
+           <widget class="QLabel" name="la_length">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -555,12 +555,12 @@ border: 5px solid  transparent;
 color: #AEB13A;</string>
             </property>
             <property name="text">
-             <string>Глубина (м)</string>
+             <string>Длина (м)</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="sb_deep">
+           <widget class="QDoubleSpinBox" name="sb_length">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
